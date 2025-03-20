@@ -1,0 +1,21 @@
+syntax = "proto3";  // Using Protocol Buffers v3
+
+package auth;  // Defines the package (namespace)
+
+service AuthService {  
+    // gRPC method to validate JWT token
+    rpc ValidateToken (TokenRequest) returns (TokenResponse);
+}
+
+// Message sent to gRPC server for validation
+message TokenRequest {  
+    string token = 1;  // JWT token string
+}
+
+// Response from gRPC server
+message TokenResponse {  
+    bool valid = 1;      // Indicates if token is valid
+    string userId = 2;   // User ID extracted from JWT
+    string email = 3;    // Email extracted from JWT
+    repeated string roles = 4; // User roles extracted from JWT
+}
